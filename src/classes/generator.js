@@ -178,14 +178,12 @@ export default class Generator extends Common {
     if (Array.isArray(tmp)) {
       for (let i = 0; i < tmp.length; i += 1) {
         this._checkArticle(tmp[i]);
-        tmp[i].total_product_without_taxes = this.formatOutputNumber(tmp[i].price * tmp[i].qt);
-        tmp[i].total_product_taxes = this.formatOutputNumber(this.round(tmp[i].total_product_without_taxes * (tmp[i].tax / 100)));
-        tmp[i].total_product_with_taxes = this.formatOutputNumber(this.round(Number(tmp[i].total_product_without_taxes) + Number(tmp[i].total_product_taxes)));
+        tmp[i].total_product = this.formatOutputNumber(tmp[i].price * tmp[i].qt);
+        tmp[i].total_product_with_discount = this.formatOutputNumber((tmp[i].price * tmp[i].qt) * ((100 - tmp[i].discount) / 100));
         tmp[i].price = this.formatOutputNumber(tmp[i].price);
-        tmp[i].tax = this.formatOutputNumber(tmp[i].tax);
-        this.total_exc_taxes += Number(tmp[i].total_product_without_taxes);
-        this.total_inc_taxes += Number(tmp[i].total_product_with_taxes);
-        this.total_taxes += Number(tmp[i].total_product_taxes);
+        this.total_exc_taxes += Number(tmp[i].price * tmp[i].qt);
+        this.total_inc_taxes += Number(tmp[i].price * tmp[i].qt) * ((100 - tmp[i].discount) / 100);
+        this.total_taxes = this.formatOutputNumber(parseFloat(this.total_exc_taxes) - parseFloat(this.total_inc_taxes));;
       }
     } else {
       this._checkArticle(tmp);

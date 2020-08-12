@@ -57,13 +57,16 @@ export default class Common {
    * @return {string}
    */
   formatOutputNumber(num) {
-    const number = num.toString();
-    if (number.includes('.')) {
-      const split = number.split('.');
+    if (Number.isInteger(num)) {
+      return num.toLocaleString() + ".00";
+    }
+    num = num.toLocaleString();
+    if (num.includes('.')) {
+      const split = num.split('.');
       if (split[1].length === 1) return `${split[0]}.${split[1]}0`;
-      if (split[1].length === 2) return number;
+      if (split[1].length === 2) return num;
       return `${split[0]}.${split[1][0]}${split[1][1]}`;
     }
-    return `${number}.00`;
+    return `${num}.00`;
   }
 }

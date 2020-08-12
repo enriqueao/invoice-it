@@ -1,6 +1,6 @@
 {
-  "name": "@rimiti/invoice-it",
-  "version": "3.5.0",
+  "name": "@enriqueao/invoice-it",
+  "version": "3.5.2",
   "description": "Order and invoice generator",
   "license": "MIT",
   "main": "dist/index.js",
